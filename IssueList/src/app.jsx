@@ -5,27 +5,46 @@ const IssueFilter = () => {
 const RowComponent = (props) => {
   return (
     <tr>
-      <td style={props.rowStyle}>{props.id}</td>
-      <td style={props.rowStyle}>{props.title}</td>
+      <td>{props.id}</td>
+      <td>{props.title}</td>
+      <td>{props.owner}</td>
+      <td>{props.created.toDateString()}</td>
+      <td>{props.due.toDateString()}</td>
+      <td>{props.status}</td>
     </tr>
   );
 };
 
 const IssueTable = () => {
-  const rowStyle = { border: "1px solid" };
-  const issues = [
+
+ 
+  const tempIssues = [
     {
-      id: 5,
-      title: "This is the fifth issue",
+      id: 1,
+      owner: "Person-A",
+      created: new Date("2022-09-19"),
+      due: new Date("2022-09-25"),
+      status: "Assigned",
+      title: "This is the First issue",
     },
     {
-      id: 6,
-      title: "This is the sixth issue",
+      id: 2,
+      owner: "Person-B",
+      created: new Date("2022-09-17"),
+      due: new Date("2022-09-22"),
+      status: "Resolved",
+      title: "This is the Second issue",
     },
   ];
 
+  const [issues, setIssues] = React.useState([]);
+
+  setTimeout(() => {
+    setIssues(tempIssues);
+  }, 2000)
+
   const issueRows = issues.map(issue => (
-    <RowComponent rowStyle = {rowStyle} id={issue.id} title = {issue.title} />
+    <RowComponent key={issue.id} owner={issue.owner} status={issue.status} created={issue.created} due={issue.due} id={issue.id} title = {issue.title} />
   ))
   return (
     <div>
@@ -33,31 +52,16 @@ const IssueTable = () => {
       <table>
         <thead>
           <tr>
-            <th style={rowStyle}>ID</th>
-            <th style={rowStyle}>Title</th>
+            <th>ID</th>
+            <th>TITLE</th>
+            <th>OWNER</th>
+            <th>CREATED</th>
+            <th>DUE</th>
+            <th>STATUS</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td style={rowStyle}>1</td>
-            <td style={rowStyle}>This is First Issue</td>
-          </tr>
-          <RowComponent
-            rowStyle={rowStyle}
-            id={2}
-            title={"This is second issue."}
-          />
-          <RowComponent
-            rowStyle={rowStyle}
-            id={3}
-            title={"This is third issue."}
-          />
-          <RowComponent
-            rowStyle={rowStyle}
-            id={4}
-            title={"This is fourth issue."}
-          />
-          {issueRows}
+        {issueRows}
         </tbody>
       </table>
     </div>
