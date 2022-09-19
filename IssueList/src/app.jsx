@@ -43,6 +43,10 @@ const IssueTable = () => {
     setIssues(tempIssues);
   }, 2000)
 
+  React.useEffect(() => {
+    
+  })
+
   const issueRows = issues.map(issue => (
     <RowComponent key={issue.id} owner={issue.owner} status={issue.status} created={issue.created} due={issue.due} id={issue.id} title = {issue.title} />
   ))
